@@ -1,0 +1,33 @@
+{
+    "name": "ndk-cli",
+    "version": "0.0.1",
+    "description": "CLI for nostr",
+    "main": "dist/index.js",
+    "files": [
+        "dist/ndk-cli"
+    ],
+    "scripts": {
+        "build": "tsc && cp src/index.js dist/",
+        "start": "ts-node src/index.ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "nostr"
+    ],
+    "author": "pablof7z",
+    "license": "MIT",
+    "dependencies": {
+        "@nostr-dev-kit/ndk": "^0.0.4",
+        "@nostr-dev-kit/ndk-cache-redis": "^1.0.1",
+        "@typescript-eslint/eslint-plugin": "^5.57.0",
+        "@typescript-eslint/parser": "^5.57.0",
+        "eslint": "^8.37.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-plugin-import": "^2.27.5",
+        "yargs": "^17.1.1-candidate.0"
+    },
+    "devDependencies": {
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.3"
+    }
+}
