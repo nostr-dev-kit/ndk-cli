@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-import yargs from 'yargs';
+import yargs, { boolean } from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import profile from './commands/profile';
+import follows from './commands/follows';
 import NDK, { NDKConstructorParams } from '@nostr-dev-kit/ndk';
 import NDKRedisCacheAdapter from '@nostr-dev-kit/ndk-cache-redis';
 
@@ -15,7 +16,9 @@ async function createNDK(
     const ndkOpts: NDKConstructorParams = {};
 
     if (cache) {
-        ndkOpts.cacheAdapter = new NDKRedisCacheAdapter();
+        ndkOpts.cacheAdapter = new NDKRedisCacheAdapter({
+            expirationTime: 3600,
+        });
     }
 
     ndkOpts.explicitRelayUrls = relays || defaultRelays;
@@ -32,6 +35,19 @@ yargs(hideBin(process.argv))
         const cache = argv.redis || false;
         const ndk = await createNDK(relays as string[], cache as boolean);
         profile(ndk, {npub: argv.npub as string});
+    })
+    .command('follows <npub>', 'get follows for an npub', (yargs) => {
+        yargs.option('profile', {
+            alias: 'p',
+            type: 'boolean',
+            description: 'Fetch profiles for follows'
+        });
+    }, async (argv) => {
+        const relays = argv.relays || defaultRelays;
+        const cache = argv.redis || false;
+        const fetchProfile = argv.profile || false;
+        const ndk = await createNDK(relays as string[], cache as boolean);
+        follows(ndk, {npub: argv.npub as string, fetchProfile: fetchProfile as boolean});
     })
     .option('relays', {
         alias: 'r',

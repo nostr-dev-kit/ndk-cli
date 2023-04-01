@@ -1,6 +1,6 @@
 {
     "name": "ndk-cli",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "CLI for nostr",
     "main": "dist/index.js",
     "bin": {
@@ -20,7 +20,7 @@
     "license": "MIT",
     "dependencies": {
         "@nostr-dev-kit/ndk": "^0.0.10",
-        "@nostr-dev-kit/ndk-cache-redis": "^1.0.5",
+        "@nostr-dev-kit/ndk-cache-redis": "^1.0.6",
         "@scure/base": "^1.1.1",
         "@types/yargs": "^17.0.24",
         "@typescript-eslint/eslint-plugin": "^5.57.0",
