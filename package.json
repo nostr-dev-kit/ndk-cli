@@ -1,15 +1,17 @@
 {
     "name": "ndk-cli",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "CLI for nostr",
     "main": "dist/index.js",
+    "bin": {
+        "ndk-cli": "dist/index.js"
+    },
     "files": [
-        "dist/ndk-cli"
+        "dist"
     ],
     "scripts": {
-        "build": "tsc && cp src/index.js dist/",
-        "start": "ts-node src/index.ts",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "tsc",
+        "start": "node dist/index.js"
     },
     "keywords": [
         "nostr"
@@ -17,16 +19,19 @@
     "author": "pablof7z",
     "license": "MIT",
     "dependencies": {
-        "@nostr-dev-kit/ndk": "^0.0.4",
-        "@nostr-dev-kit/ndk-cache-redis": "^1.0.1",
+        "@nostr-dev-kit/ndk": "^0.0.10",
+        "@nostr-dev-kit/ndk-cache-redis": "^1.0.5",
+        "@scure/base": "^1.1.1",
+        "@types/yargs": "^17.0.24",
         "@typescript-eslint/eslint-plugin": "^5.57.0",
         "@typescript-eslint/parser": "^5.57.0",
         "eslint": "^8.37.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-import": "^2.27.5",
-        "yargs": "^17.1.1-candidate.0"
+        "yargs": "^17.7.1"
     },
     "devDependencies": {
+        "@types/node": "^18.15.11",
         "ts-node": "^10.9.1",
         "typescript": "^5.0.3"
     }
