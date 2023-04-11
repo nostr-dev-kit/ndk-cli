@@ -4,10 +4,17 @@ import yargs, { boolean } from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import profile from './commands/profile';
 import follows from './commands/follows';
+import query from './commands/query';
 import NDK, { NDKConstructorParams } from '@nostr-dev-kit/ndk';
 import NDKRedisCacheAdapter from '@nostr-dev-kit/ndk-cache-redis';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-const defaultRelays = ['wss://nos.lol'];
+let defaultRelays = ['wss://nos.lol'];
+
+if (process.env.RELAYS) {
+    defaultRelays = process.env.RELAYS.split(',');
+}
 
 async function createNDK(
     relays: string[],
@@ -49,6 +56,14 @@ yargs(hideBin(process.argv))
         const ndk = await createNDK(relays as string[], cache as boolean);
         follows(ndk, {npub: argv.npub as string, fetchProfile: fetchProfile as boolean});
     })
+
+    .command('query <query>', 'run a query', (yargs) => {}, async (argv) => {
+        const relays = argv.relays || defaultRelays;
+        const cache = argv.redis || false;
+        const ndk = await createNDK(relays as string[], cache as boolean);
+        query(ndk, {query: JSON.parse(argv.query as string)});
+    })
+
     .option('relays', {
         alias: 'r',
         type: 'array',

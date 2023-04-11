@@ -11,7 +11,7 @@ export default async function follows(ndk: NDK, opts: IFollowsOpts) {
 
     const follows = await user.follows();
 
-    for (let follow of follows) {
+    for (const follow of follows) {
         if (fetchProfile) {
             await follow.fetchProfile();
             console.log(follow.profile?.name || follow.npub);
