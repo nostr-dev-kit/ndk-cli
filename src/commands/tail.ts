@@ -7,13 +7,10 @@ export interface IQueryOpts {
 
 export default async function query(ndk: NDK, opts: IQueryOpts) {
     const {query} = opts;
+    query.since = Math.floor(Date.now() / 1000);
     const sub = ndk.subscribe(query, { closeOnEose: false });
 
     sub.on('event', (event: NDKEvent) => {
-        console.log(JSON.stringify(event.rawEvent()));
-    });
-
-    sub.on('eose', () => {
-        setTimeout(() => process.exit(0), 1000);
+        console.log(`[${event.created_at}] ${event.content}`);
     });
 };
