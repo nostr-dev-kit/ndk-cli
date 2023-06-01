@@ -7,7 +7,13 @@ import follows from "./commands/follows";
 import NDK, { NDKConstructorParams } from "@nostr-dev-kit/ndk";
 import NDKRedisCacheAdapter from "@nostr-dev-kit/ndk-cache-redis";
 
-const defaultRelays = ["wss://nos.lol"];
+const defaultRelays = [
+    "wss://nos.lol",
+    "wss://relay.nostr.band",
+    "wss://relay.damus.io",
+    "wss://purplepag.es",
+    "wss://relay.snort.social",
+];
 
 async function createNDK(relays: string[], cache: boolean): Promise<NDK> {
     const ndkOpts: NDKConstructorParams = {};
