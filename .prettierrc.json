@@ -1,7 +1,10 @@
 {
-  "importOrder": ["^[./]"],
+  "importOrder": [
+    "^[./]"
+  ],
   "importOrderSeparation": true,
   "tabWidth": 4,
   "useTabs": false,
-  "semi": true
+  "semi": true,
+  "singleQuote": true
 }
