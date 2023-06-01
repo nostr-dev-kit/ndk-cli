@@ -1,27 +1,27 @@
 #!/usr/bin/env node
 
-import yargs, { boolean } from "yargs";
-import { hideBin } from "yargs/helpers";
-import profile from "./commands/profile";
-import follows from "./commands/follows";
-import query from "./commands/query";
-import tail from "./commands/tail";
-import zaps from "./commands/zaps";
-import NDK, { NDKConstructorParams } from "@nostr-dev-kit/ndk";
-import NDKRedisCacheAdapter from "@nostr-dev-kit/ndk-cache-redis";
-import * as dotenv from "dotenv";
+import yargs, { boolean } from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import profile from './commands/profile';
+import follows from './commands/follows';
+import query from './commands/query';
+import tail from './commands/tail';
+import zaps from './commands/zaps';
+import NDK, { NDKConstructorParams } from '@nostr-dev-kit/ndk';
+import NDKRedisCacheAdapter from '@nostr-dev-kit/ndk-cache-redis';
+import * as dotenv from 'dotenv';
 dotenv.config();
 
 let defaultRelays = [
-    "wss://nos.lol",
-    "wss://purplepag.es",
-    "wss://relay.damus.io",
-    "wss://relay.nostr.band",
-    "wss://relay.snort.social",
+    'wss://nos.lol',
+    'wss://purplepag.es',
+    'wss://relay.damus.io',
+    'wss://relay.nostr.band',
+    'wss://relay.snort.social',
 ];
 
 if (process.env.RELAYS) {
-    defaultRelays = process.env.RELAYS.split(",");
+    defaultRelays = process.env.RELAYS.split(',');
 }
 
 async function createNDK(relays: string[], cache: boolean): Promise<NDK> {
@@ -43,8 +43,8 @@ async function createNDK(relays: string[], cache: boolean): Promise<NDK> {
 
 yargs(hideBin(process.argv))
     .command(
-        "profile <npub>",
-        "get profile data",
+        'profile <npub>',
+        'get profile data',
         () => {},
         async (argv) => {
             const relays = argv.relays || defaultRelays;
@@ -54,11 +54,11 @@ yargs(hideBin(process.argv))
         }
     )
     .command(
-        "zaps <npub>",
-        "tail content",
+        'zaps <npub>',
+        'tail content',
         (yargs) => {
-            yargs.option("f", {
-                type: "boolean",
+            yargs.option('f', {
+                type: 'boolean',
                 description: "like tail's -f",
             });
         },
@@ -70,8 +70,8 @@ yargs(hideBin(process.argv))
         }
     )
     .command(
-        "tail <filter>",
-        "tail content",
+        'tail <filter>',
+        'tail content',
         () => {},
         async (argv) => {
             const relays = argv.relays || defaultRelays;
@@ -81,13 +81,13 @@ yargs(hideBin(process.argv))
         }
     )
     .command(
-        "follows <npub>",
-        "get follows for an npub",
+        'follows <npub>',
+        'get follows for an npub',
         (yargs) => {
-            yargs.option("profile", {
-                alias: "p",
-                type: "boolean",
-                description: "Fetch profiles for follows",
+            yargs.option('profile', {
+                alias: 'p',
+                type: 'boolean',
+                description: 'Fetch profiles for follows',
             });
         },
         async (argv) => {
@@ -103,8 +103,8 @@ yargs(hideBin(process.argv))
     )
 
     .command(
-        "query <query>",
-        "run a query",
+        'query <query>',
+        'run a query',
         (yargs) => {},
         async (argv) => {
             const relays = argv.relays || defaultRelays;
@@ -114,14 +114,14 @@ yargs(hideBin(process.argv))
         }
     )
 
-    .option("relays", {
-        alias: "r",
-        type: "array",
-        description: "Relay URLs to use",
+    .option('relays', {
+        alias: 'r',
+        type: 'array',
+        description: 'Relay URLs to use',
     })
-    .option("redis", {
-        type: "boolean",
-        description: "Use redis for caching",
+    .option('redis', {
+        type: 'boolean',
+        description: 'Use redis for caching',
     })
     .demandCommand(1)
     .parse();
