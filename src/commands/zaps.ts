@@ -29,7 +29,7 @@ export default async function zaps(ndk: NDK, opts: IQueryOpts) {
             await zappeeUser.fetchProfile();
             const zappeeName = zappeeUser.profile?.displayName || zappeeUser.npub;
 
-            console.log(`[${time}] ${zappeeName} zapped ${amount} sats${commentString}`);
+            console.log(`[${time}] ${zappeeName} zapped ${amount/1000} sats${commentString}`);
         } catch (e) {
             console.log(`error:`, e);
         }
